@@ -1,37 +1,62 @@
 <?php
-class Product{
+class activity{
  
     // database connection and table name
     private $conn;
-    private $table_name = "products";
+    private $table_name = "activity";
  
     // object properties
     public $id;
     public $name;
-    public $description;
     public $price;
     public $category_id;
     public $category_name;
+    public $adress_id;
+    public $adress;
+    public $adress_cp;
+    public $adress_ville;
+    public $note_id;
+    public $note_ambiance;
+    public $note_food;
+    public $photo_id;
+    public $photo_img;
     public $created;
+    public $deleted;
  
     // constructor with $db as database connection
     public function __construct($db){
         $this->conn = $db;
     }
 
-    // read products
+    // read activity
 function read(){
  
     // select all query
     $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
-            FROM
-                " . $this->table_name . " p
+                c.name as category_name, 
+                ad.adress as adress,
+                ad.codepostal as adress_cp,
+                ad.ville as adress_ville,
+                n.note_ambiance as note_ambiance,
+                n.note_food as note_food,
+                p.img as photo_img,
+                a.id, a.name, a.price, a.category_id,a.adress_id, a.note_id, a.photo_id, a.created, a.deleted
+            FROM ((((
+                " . $this->table_name . " a
                 LEFT JOIN
                     categories c
-                        ON p.category_id = c.id
+                        ON a.category_id = c.id )
+                LEFT JOIN
+                    adress ad
+                        ON a.adress_id = ad.id )
+                LEFT JOIN
+                    note n
+                        ON a.note_id = n.id )
+                LEFT JOIN 
+                    photo p 
+                        ON a.photo_id = p.id )
             ORDER BY
-                p.created DESC";
+                a.created DESC";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);
@@ -42,7 +67,7 @@ function read(){
     return $stmt;
 }
 
-// create product
+// create activity
 function create(){
  
     // query to insert record
@@ -77,7 +102,7 @@ function create(){
      
 }
 
-// used when filling up the update product form
+// used when filling up the update activity form
 function readOne(){
  
     // query to read single record
@@ -96,7 +121,7 @@ function readOne(){
     // prepare query statement
     $stmt = $this->conn->prepare( $query );
  
-    // bind id of product to be updated
+    // bind id of activity to be updated
     $stmt->bindParam(1, $this->id);
  
     // execute query
@@ -113,7 +138,7 @@ function readOne(){
     $this->category_name = $row['category_name'];
 }
 
-// update the product
+// update the activity
 function update(){
  
     // update query
@@ -151,7 +176,7 @@ function update(){
  
     return false;
 }
-// delete the product
+// delete the activity
 function delete(){
  
     // delete query
@@ -174,7 +199,7 @@ function delete(){
     return false;
      
 }
-// search products
+// search activity
 function search($keywords){
  
     // select all query
@@ -207,7 +232,7 @@ function search($keywords){
  
     return $stmt;
 }
-// read products with pagination
+// read activity with pagination
 public function readPaging($from_record_num, $records_per_page){
  
     // select query
@@ -234,7 +259,7 @@ public function readPaging($from_record_num, $records_per_page){
     // return values from database
     return $stmt;
 }
-// used for paging products
+// used for paging activity
 public function count(){
     $query = "SELECT COUNT(*) as total_rows FROM " . $this->table_name . "";
  
