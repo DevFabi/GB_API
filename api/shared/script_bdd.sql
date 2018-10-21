@@ -53,10 +53,10 @@ CREATE TABLE `commentaire` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `commentaire` (`id`, `author`, `content`, `created`, `deleted`) VALUES
-(1, 'Fabi la débile', 'Petit commentaire juste pour tester','2018-06-21 00:35:07', '0'),
-(2, 'Fabi la débile','Petit commentaire juste pour tester','2018-04-10 00:35:07', '0'),
-(3, 'Alex le relou','Petit commentaire juste pour tester','2018-02-11 00:35:07', '0'),
-(4, 'Alex le relou','Petit commentaire juste pour tester', '2018-02-00 00:35:07', '0');
+(1, 'Fabi la débile', 'Petit commentaire juste pour tester','2018-06-21 00:35:07', 0),
+(2, 'Fabi la débile','Petit commentaire juste pour tester','2018-04-10 00:35:07', 0),
+(3, 'Alex le relou','Petit commentaire juste pour tester','2018-02-11 00:35:07', 0),
+(4, 'Alex le relou','Petit commentaire juste pour tester', '2018-02-01 00:35:07', 0);
 
 CREATE TABLE `adress` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -69,10 +69,10 @@ CREATE TABLE `adress` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `adress` (`id`, `adress`, `codepostal`,`ville`, `created`, `deleted`) VALUES
-(1, '331 AV clarke', 'H3Z 2E7','WESTMOUNT','2018-06-21 00:35:07', '0'),
-(2, '333 AV clarke','H3Z 2E7','WESTMOUNT','2018-04-10 00:35:07', '0'),
-(3, '334 AV clarke','H3Z 2E7','WESTMOUNT','2018-02-11 00:35:07', '0'),
-(4, '336 AV clarke','H3Z 2E7','WESTMOUNT', '2018-02-00 00:35:07', '0');
+(1, '331 AV clarke', 'H3Z 2E7','WESTMOUNT','2018-06-21 00:35:07', 0),
+(2, '333 AV clarke','H3Z 2E7','WESTMOUNT','2018-04-10 00:35:07', 0),
+(3, '334 AV clarke','H3Z 2E7','WESTMOUNT','2018-02-11 00:35:07', 0),
+(4, '336 AV clarke','H3Z 2E7','WESTMOUNT', '2018-02-01 00:35:07', 0);
 
 CREATE TABLE `note` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -84,10 +84,10 @@ CREATE TABLE `note` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `note` (`id`, `note_ambiance`, `note_food`, `created`, `deleted`) VALUES
-(1, '7', '1','2018-06-21 00:35:07', '0'),
-(2, '4','17','2018-04-10 00:35:07', '0'),
-(3, '17','1','2018-02-11 00:35:07', '0'),
-(4, '20','17', '2018-02-00 00:35:07', '0');
+(1, 7, 1,'2018-06-21 00:35:07', 0),
+(2, 4,17,'2018-04-10 00:35:07', 0),
+(3, 17,1,'2018-02-11 00:35:07', 0),
+(4, 20,17, '2018-02-01 00:35:07', 0);
 
 CREATE TABLE `photo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -98,7 +98,7 @@ CREATE TABLE `photo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `photo` (`id`, `img`, `created`, `deleted`) VALUES
-(1, '7.jpg','2018-06-21 00:35:07', '0'),
-(2, '4.jpg','2018-04-10 00:35:07', '0'),
-(3, '17.jpg','2018-02-11 00:35:07', '0'),
-(4, '20.jpg','2018-02-00 00:35:07', '0');
+(1, '7.jpg','2018-06-21 00:35:07', 0),
+(2, '4.jpg','2018-04-10 00:35:07', 0),
+(3, '17.jpg','2018-02-11 00:35:07', 0),
+(4, '20.jpg','2018-02-01 00:35:07', 0);

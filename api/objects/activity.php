@@ -44,7 +44,7 @@ function read(){
             FROM ((((
                 " . $this->table_name . " a
                 LEFT JOIN
-                    categories c
+                    category c
                         ON a.category_id = c.id )
                 LEFT JOIN
                     adress ad
@@ -74,7 +74,7 @@ function create(){
     $query = "INSERT INTO
                 " . $this->table_name . "
             SET
-                name=:name, price=:price, description=:description, category_id=:category_id, created=:created";
+                name=:name, price=:price, category_id=:category_id, adress_id=:adress_id,note_id=:note_id, photo_id=:photo_id,created=:created";
  
     // prepare query
     $stmt = $this->conn->prepare($query);
@@ -82,15 +82,19 @@ function create(){
     // sanitize
     $this->name=htmlspecialchars(strip_tags($this->name));
     $this->price=htmlspecialchars(strip_tags($this->price));
-    $this->description=htmlspecialchars(strip_tags($this->description));
     $this->category_id=htmlspecialchars(strip_tags($this->category_id));
+    $this->adress_id=htmlspecialchars(strip_tags($this->adress_id));
+    $this->note_id=htmlspecialchars(strip_tags($this->note_id));
+    $this->photo_id=htmlspecialchars(strip_tags($this->photo_id));
     $this->created=htmlspecialchars(strip_tags($this->created));
  
     // bind values
     $stmt->bindParam(":name", $this->name);
     $stmt->bindParam(":price", $this->price);
-    $stmt->bindParam(":description", $this->description);
     $stmt->bindParam(":category_id", $this->category_id);
+    $stmt->bindParam(":adress_id", $this->adress_id);
+    $stmt->bindParam(":note_id", $this->note_id);
+    $stmt->bindParam(":photo_id", $this->photo_id);
     $stmt->bindParam(":created", $this->created);
  
     // execute query

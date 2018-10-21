@@ -9,13 +9,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
  
-// instantiate product object
-include_once '../objects/product.php';
+// instantiate activity object
+include_once '../objects/activity.php';
  
 $database = new Database();
 $db = $database->getConnection();
  
-$product = new Product($db);
+$activity = new Activity($db);
  
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
@@ -24,35 +24,40 @@ $data = json_decode(file_get_contents("php://input"));
 if(
     !empty($data->name) &&
     !empty($data->price) &&
-    !empty($data->description) &&
-    !empty($data->category_id)
+    !empty($data->category_id) &&
+    !empty($data->adress_id) &&
+    !empty($data->note_id) &&
+    !empty($data->photo_id) 
+    
 ){
  
-    // set product property values
-    $product->name = $data->name;
-    $product->price = $data->price;
-    $product->description = $data->description;
-    $product->category_id = $data->category_id;
-    $product->created = date('Y-m-d H:i:s');
+    // set activity property values
+    $activity->name = $data->name;
+    $activity->price = $data->price;
+    $activity->category_id = $data->category_id;
+    $activity->adress_id = $data->adress_id;
+    $activity->note_id = $data->note_id;
+    $activity->photo_id = $data->photo_id;
+    $activity->created = date('Y-m-d H:i:s');
  
-    // create the product
-    if($product->create()){
+    // create the activity
+    if($activity->create()){
  
         // set response code - 201 created
         http_response_code(201);
  
         // tell the user
-        echo json_encode(array("message" => "Product was created."));
+        echo json_encode(array("message" => "Activity was created."));
     }
  
-    // if unable to create the product, tell the user
+    // if unable to create the activity, tell the user
     else{
  
         // set response code - 503 service unavailable
         http_response_code(503);
  
         // tell the user
-        echo json_encode(array("message" => "Unable to create product."));
+        echo json_encode(array("message" => "Unable to create activity."));
     }
 }
  
@@ -63,6 +68,6 @@ else{
     http_response_code(400);
  
     // tell the user
-    echo json_encode(array("message" => "Unable to create product. Data is incomplete."));
+    echo json_encode(array("message" => "Unable to create activity. Data is incomplete."));
 }
 ?>
