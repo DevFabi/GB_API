@@ -109,18 +109,34 @@ function create(){
 // used when filling up the update activity form
 function readOne(){
  
-    // query to read single record
-    $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
-            FROM
-                " . $this->table_name . " p
+$query = "SELECT
+                c.name as category_name, 
+                ad.adress as adress,
+                ad.codepostal as adress_cp,
+                ad.ville as adress_ville,
+                n.note_ambiance as note_ambiance,
+                n.note_food as note_food,
+                p.img as photo_img,
+                a.id, a.name, a.price, a.category_id,a.adress_id, a.note_id, a.photo_id, a.created, a.deleted
+            FROM ((((
+                " . $this->table_name . " a
                 LEFT JOIN
-                    categories c
-                        ON p.category_id = c.id
-            WHERE
-                p.id = ?
+                    category c
+                        ON a.category_id = c.id )
+                LEFT JOIN
+                    adress ad
+                        ON a.adress_id = ad.id )
+                LEFT JOIN
+                    note n
+                        ON a.note_id = n.id )
+                LEFT JOIN 
+                    photo p 
+                        ON a.photo_id = p.id )
+           WHERE
+                a.id = ?
             LIMIT
                 0,1";
+            
  
     // prepare query statement
     $stmt = $this->conn->prepare( $query );
@@ -137,9 +153,19 @@ function readOne(){
     // set values to object properties
     $this->name = $row['name'];
     $this->price = $row['price'];
-    $this->description = $row['description'];
     $this->category_id = $row['category_id'];
     $this->category_name = $row['category_name'];
+    $this->adress_id = $row['adress_id'];
+    $this->adress = $row['adress'];
+    $this->adress_ville = $row['adress_ville'];
+    $this->adress_cp = $row['adress_cp'];
+    $this->note_id = $row['note_id'];
+    $this->note_ambiance = $row['note_ambiance'];
+    $this->note_food = $row['note_food'];
+    $this->photo_id = $row['photo_id'];
+    $this->photo_img = $row['photo_img'];
+    $this->created = $row['created'];
+    $this->deleted = $row['deleted'];
 }
 
 // update the activity
