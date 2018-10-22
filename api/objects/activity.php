@@ -177,27 +177,32 @@ function update(){
             SET
                 name = :name,
                 price = :price,
-                description = :description,
-                category_id = :category_id
+                category_id = :category_id,
+                adress_id = :adress_id,
+                note_id = :note_id,
+                photo_id = :photo_id
             WHERE
                 id = :id";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);
  
+    
     // sanitize
     $this->name=htmlspecialchars(strip_tags($this->name));
     $this->price=htmlspecialchars(strip_tags($this->price));
-    $this->description=htmlspecialchars(strip_tags($this->description));
     $this->category_id=htmlspecialchars(strip_tags($this->category_id));
-    $this->id=htmlspecialchars(strip_tags($this->id));
+    $this->adress_id=htmlspecialchars(strip_tags($this->adress_id));
+    $this->note_id=htmlspecialchars(strip_tags($this->note_id));
+    $this->photo_id=htmlspecialchars(strip_tags($this->photo_id));
  
-    // bind new values
-    $stmt->bindParam(':name', $this->name);
-    $stmt->bindParam(':price', $this->price);
-    $stmt->bindParam(':description', $this->description);
-    $stmt->bindParam(':category_id', $this->category_id);
-    $stmt->bindParam(':id', $this->id);
+    // bind values
+    $stmt->bindParam(":name", $this->name);
+    $stmt->bindParam(":price", $this->price);
+    $stmt->bindParam(":category_id", $this->category_id);
+    $stmt->bindParam(":adress_id", $this->adress_id);
+    $stmt->bindParam(":note_id", $this->note_id);
+    $stmt->bindParam(":photo_id", $this->photo_id);
  
     // execute the query
     if($stmt->execute()){
@@ -234,16 +239,32 @@ function search($keywords){
  
     // select all query
     $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
-            FROM
-                " . $this->table_name . " p
+                c.name as category_name, 
+                ad.adress as adress,
+                ad.codepostal as adress_cp,
+                ad.ville as adress_ville,
+                n.note_ambiance as note_ambiance,
+                n.note_food as note_food,
+                p.img as photo_img,
+                a.id, a.name, a.price, a.category_id,a.adress_id, a.note_id, a.photo_id, a.created, a.deleted
+            FROM ((((
+                " . $this->table_name . " a
                 LEFT JOIN
-                    categories c
-                        ON p.category_id = c.id
+                    category c
+                        ON a.category_id = c.id )
+                LEFT JOIN
+                    adress ad
+                        ON a.adress_id = ad.id )
+                LEFT JOIN
+                    note n
+                        ON a.note_id = n.id )
+                LEFT JOIN 
+                    photo p 
+                        ON a.photo_id = p.id )
             WHERE
-                p.name LIKE ? OR p.description LIKE ? OR c.name LIKE ?
+                a.name LIKE ? OR c.category_name LIKE ?
             ORDER BY
-                p.created DESC";
+                a.created DESC";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);
@@ -267,13 +288,29 @@ public function readPaging($from_record_num, $records_per_page){
  
     // select query
     $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
-            FROM
-                " . $this->table_name . " p
+                c.name as category_name, 
+                ad.adress as adress,
+                ad.codepostal as adress_cp,
+                ad.ville as adress_ville,
+                n.note_ambiance as note_ambiance,
+                n.note_food as note_food,
+                p.img as photo_img,
+                a.id, a.name, a.price, a.category_id,a.adress_id, a.note_id, a.photo_id, a.created, a.deleted
+            FROM ((((
+                " . $this->table_name . " a
                 LEFT JOIN
-                    categories c
-                        ON p.category_id = c.id
-            ORDER BY p.created DESC
+                    category c
+                        ON a.category_id = c.id )
+                LEFT JOIN
+                    adress ad
+                        ON a.adress_id = ad.id )
+                LEFT JOIN
+                    note n
+                        ON a.note_id = n.id )
+                LEFT JOIN 
+                    photo p 
+                        ON a.photo_id = p.id )
+            ORDER BY a.created DESC
             LIMIT ?, ?";
  
     // prepare query statement
