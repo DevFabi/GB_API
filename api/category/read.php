@@ -36,9 +36,7 @@ if($num>0){
  
         $category_item=array(
             "id" => $id,
-            "name" => $name,
-            "created" => $created,
-            "deleted" => $deleted
+            "name" => $name
 
         );
  
