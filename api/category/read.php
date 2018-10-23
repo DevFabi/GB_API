@@ -24,7 +24,7 @@ if($num>0){
     // products array
     $categories_arr=array();
     $categories_arr["records"]=array();
- 
+    
     // retrieve our table contents
     // fetch() is faster than fetchAll()
     // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
@@ -37,7 +37,9 @@ if($num>0){
         $category_item=array(
             "id" => $id,
             "name" => $name,
-            "description" => html_entity_decode($description)
+            "created" => $created,
+            "deleted" => $deleted
+
         );
  
         array_push($categories_arr["records"], $category_item);

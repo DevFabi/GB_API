@@ -8,44 +8,46 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
  
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/product.php';
+include_once '../objects/activity.php';
  
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
  
-// prepare product object
-$product = new Product($db);
+// prepare activity object
+$activity = new Activity($db);
  
-// get id of product to be edited
+// get id of activity to be edited
 $data = json_decode(file_get_contents("php://input"));
  
-// set ID property of product to be edited
-$product->id = $data->id;
+// set ID property of activity to be edited
+$activity->id = $data->id;
  
-// set product property values
-$product->name = $data->name;
-$product->price = $data->price;
-$product->description = $data->description;
-$product->category_id = $data->category_id;
+// set activity property values
+$activity->name = $data->name;
+$activity->price = $data->price;
+$activity->category_id = $data->category_id;
+$activity->adress_id = $data->adress_id;
+$activity->note_id = $data->note_id;
+$activity->photo_id = $data->photo_id;
  
-// update the product
-if($product->update()){
+// update the activity
+if($activity->update()){
  
     // set response code - 200 ok
     http_response_code(200);
  
     // tell the user
-    echo json_encode(array("message" => "Product was updated."));
+    echo json_encode(array("message" => "activities was updated."));
 }
  
-// if unable to update the product, tell the user
+// if unable to update the activity, tell the user
 else{
  
     // set response code - 503 service unavailable
     http_response_code(503);
  
     // tell the user
-    echo json_encode(array("message" => "Unable to update product."));
+    echo json_encode(array("message" => "Unable to update activity."));
 }
 ?>
