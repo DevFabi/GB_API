@@ -33,5 +33,36 @@ public function read(){
     return $stmt;
 }
 
+function create(){
+ 
+    // query to insert record
+    $query = "INSERT INTO
+                " . $this->table_name . "
+            SET
+                note_ambiance=:note_ambiance, note_food=:note_food, created=:created";
+ 
+    // prepare query
+    $stmt = $this->conn->prepare($query);
+ 
+    // sanitize
+    $this->note_ambiance=htmlspecialchars(strip_tags($this->note_ambiance));
+    $this->note_food=htmlspecialchars(strip_tags($this->note_food));
+    $this->created=htmlspecialchars(strip_tags($this->created));
+ 
+    // bind values
+    $stmt->bindParam(":note_ambiance", $this->note_ambiance);
+    $stmt->bindParam(":note_food", $this->note_food);
+    $stmt->bindParam(":created", $this->created);
+ 
+    // execute query
+    if($stmt->execute()){
+        return true;
+    }
+ 
+    return false;
+     
+}
+
+
 }
 ?>

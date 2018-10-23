@@ -32,5 +32,34 @@ public function read(){
     return $stmt;
 }
 
+function create(){
+ 
+    // query to insert record
+    $query = "INSERT INTO
+                " . $this->table_name . "
+            SET
+                img=:img, created=:created";
+ 
+    // prepare query
+    $stmt = $this->conn->prepare($query);
+ 
+    // sanitize
+    $this->img=htmlspecialchars(strip_tags($this->img));
+    $this->created=htmlspecialchars(strip_tags($this->created));
+ 
+    // bind values
+    $stmt->bindParam(":img", $this->img);
+    $stmt->bindParam(":created", $this->created);
+ 
+    // execute query
+    if($stmt->execute()){
+        return true;
+    }
+ 
+    return false;
+     
+}
+
+
 }
 ?>
