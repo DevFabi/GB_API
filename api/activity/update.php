@@ -23,6 +23,8 @@ $data = json_decode(file_get_contents("php://input"));
 // set ID property of activity to be edited
 $activity->id = $data->id;
  
+
+// A modifier pour update toutes les tables si nécessaire : Adress, note, photo
 // set activity property values
 $activity->name = $data->name;
 $activity->price = $data->price;
