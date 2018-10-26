@@ -189,6 +189,7 @@ function update(){
  
     
     // sanitize
+    // strip_tags :: Supprime les balises HTML et PHP d'une chaîne
     $this->name=htmlspecialchars(strip_tags($this->name));
     $this->price=htmlspecialchars(strip_tags($this->price));
     $this->category_id=htmlspecialchars(strip_tags($this->category_id));
@@ -196,7 +197,7 @@ function update(){
     $this->note_id=htmlspecialchars(strip_tags($this->note_id));
     $this->photo_id=htmlspecialchars(strip_tags($this->photo_id));
  
-    // bind values
+    // bind values  :: Lie un paramètre à un nom de variable spécifique
     $stmt->bindParam(":name", $this->name);
     $stmt->bindParam(":price", $this->price);
     $stmt->bindParam(":category_id", $this->category_id);
