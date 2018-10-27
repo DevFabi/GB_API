@@ -18,7 +18,7 @@ use \Firebase\JWT\JWT;
 include_once '../config/database.php';
 include_once '../objects/user.php';
  
-// get database connection
+// get database connection 
 $database = new Database();
 $db = $database->getConnection();
  
