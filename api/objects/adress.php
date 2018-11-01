@@ -74,8 +74,8 @@ function update(){
                 " . $this->table_name . "
             SET
                 adress = :adress,
-                adress_cp = :adress_cp,
-                adress_ville = :adress_ville
+                codepostal = :adress_cp,
+                ville = :adress_ville
             WHERE
                 id = :id";
  
@@ -93,6 +93,7 @@ function update(){
     $stmt->bindParam(":adress", $this->adress);
     $stmt->bindParam(":adress_cp", $this->adress_cp);
     $stmt->bindParam(":adress_ville", $this->adress_ville);
+     $stmt->bindParam(":id", $this->adress_id);
     // execute the query
     if($stmt->execute()){
         return true;
@@ -100,6 +101,7 @@ function update(){
  
     return false;
 }
+
 
 }
 ?>

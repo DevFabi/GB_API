@@ -41,6 +41,27 @@ $activity->note_ambiance = $data->note_ambiance;
 $activity->note_food = $data->note_food;
 $activity->photo_img = $data->photo_img;
  
+
+ // update the adress
+if($adress->update()){
+ 
+    // set response code - 200 ok
+    http_response_code(200);
+ 
+    // tell the user
+    echo json_encode(array("message" => "adress was updated."));
+}
+ 
+// if unable to update the adress, tell the user
+else{
+ 
+    // set response code - 503 service unavailable
+    http_response_code(503);
+ 
+    // tell the user
+    echo json_encode(array("message" => "Unable to update adress."));
+}
+
 // update the activity
 if($activity->update()){
  
@@ -61,23 +82,5 @@ else{
     echo json_encode(array("message" => "Unable to update activity."));
 }
 
-// update the adress
-if($adress->update()){
- 
-    // set response code - 200 ok
-    http_response_code(200);
- 
-    // tell the user
-    echo json_encode(array("message" => "adress was updated."));
-}
- 
-// if unable to update the adress, tell the user
-else{
- 
-    // set response code - 503 service unavailable
-    http_response_code(503);
- 
-    // tell the user
-    echo json_encode(array("message" => "Unable to update adress."));
-}
+
 ?>
