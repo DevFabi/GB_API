@@ -8,23 +8,23 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
  
 // include database and object file
 include_once '../config/database.php';
-include_once '../objects/product.php';
+include_once '../objects/activity.php';
  
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
  
-// prepare product object
-$product = new Product($db);
+// prepare activity object
+$activity = new Activity($db);
  
-// get product id
+// get activity id
 $data = json_decode(file_get_contents("php://input"));
  
-// set product id to be deleted
-$product->id = $data->id;
+// set activity id to be deleted
+$activity->id = $data->id;
  
-// delete the product
-if($product->delete()){
+// delete the activity
+if($activity->delete()){
  
     // set response code - 200 ok
     http_response_code(200);
@@ -33,13 +33,13 @@ if($product->delete()){
     echo json_encode(array("message" => "Product was deleted."));
 }
  
-// if unable to delete the product
+// if unable to delete the activity
 else{
  
     // set response code - 503 service unavailable
     http_response_code(503);
  
     // tell the user
-    echo json_encode(array("message" => "Unable to delete product."));
+    echo json_encode(array("message" => "Unable to delete activity."));
 }
 ?>

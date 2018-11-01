@@ -32,6 +32,12 @@ $activity->category_id = $data->category_id;
 $activity->adress_id = $data->adress_id;
 $activity->note_id = $data->note_id;
 $activity->photo_id = $data->photo_id;
+$activity->adress = $data->adress;
+$activity->adress_cp =$data->adress_cp;
+$activity->adress_ville = $data->adress_ville;
+$activity->note_ambiance = $data->note_ambiance;
+$activity->note_food = $data->note_food;
+$activity->photo_img = $data->photo_img;
  
 // update the activity
 if($activity->update()){
