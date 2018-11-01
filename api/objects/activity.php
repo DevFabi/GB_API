@@ -177,10 +177,7 @@ function update(){
             SET
                 name = :name,
                 price = :price,
-                category_id = :category_id,
-                adress_id = :adress_id,
-                note_id = :note_id,
-                photo_id = :photo_id
+                category_id = :category_id
             WHERE
                 id = :id";
  
@@ -193,17 +190,17 @@ function update(){
     $this->name=htmlspecialchars(strip_tags($this->name));
     $this->price=htmlspecialchars(strip_tags($this->price));
     $this->category_id=htmlspecialchars(strip_tags($this->category_id));
-    $this->adress_id=htmlspecialchars(strip_tags($this->adress_id));
+  /*  $this->adress_id=htmlspecialchars(strip_tags($this->adress_id));
     $this->note_id=htmlspecialchars(strip_tags($this->note_id));
-    $this->photo_id=htmlspecialchars(strip_tags($this->photo_id));
+    $this->photo_id=htmlspecialchars(strip_tags($this->photo_id));*/
  
     // bind values  :: Lie un paramètre à un nom de variable spécifique
     $stmt->bindParam(":name", $this->name);
     $stmt->bindParam(":price", $this->price);
     $stmt->bindParam(":category_id", $this->category_id);
-    $stmt->bindParam(":adress_id", $this->adress_id);
+   /* $stmt->bindParam(":adress_id", $this->adress_id);
     $stmt->bindParam(":note_id", $this->note_id);
-    $stmt->bindParam(":photo_id", $this->photo_id);
+    $stmt->bindParam(":photo_id", $this->photo_id);*/
  
     // execute the query
     if($stmt->execute()){

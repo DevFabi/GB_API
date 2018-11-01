@@ -66,5 +66,40 @@ function create(){
      
 }
 
+// update the adress
+function update(){
+ 
+    // update query
+    $query = "UPDATE
+                " . $this->table_name . "
+            SET
+                adress = :adress,
+                adress_cp = :adress_cp,
+                adress_ville = :adress_ville
+            WHERE
+                id = :id";
+ 
+    // prepare query statement
+    $stmt = $this->conn->prepare($query);
+ 
+    
+    // sanitize
+    // strip_tags :: Supprime les balises HTML et PHP d'une chaîne
+    $this->adress=htmlspecialchars(strip_tags($this->adress));
+    $this->adress_cp=htmlspecialchars(strip_tags($this->adress_cp));
+    $this->adress_ville=htmlspecialchars(strip_tags($this->adress_ville));
+ 
+    // bind values  :: Lie un paramètre à un nom de variable spécifique
+    $stmt->bindParam(":adress", $this->adress);
+    $stmt->bindParam(":adress_cp", $this->adress_cp);
+    $stmt->bindParam(":adress_ville", $this->adress_ville);
+    // execute the query
+    if($stmt->execute()){
+        return true;
+    }
+ 
+    return false;
+}
+
 }
 ?>
